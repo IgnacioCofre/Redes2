@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+message Request {
+    string ip_client= 5;
+}
+
+message Response {
+    float pista = 1;
+    float altura = 2;
+    string ip_server = 3;
+}
+
+message None{}
+
+service Calculator {
+    rpc SquareRoot(Request) returns (Response) {}
+}
