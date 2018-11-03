@@ -19,11 +19,6 @@ class CalculatorStub(object):
         request_serializer=calculator__pb2.Request.SerializeToString,
         response_deserializer=calculator__pb2.Response.FromString,
         )
-    self.Asigaltura = channel.unary_unary(
-        '/Calculator/Asigaltura',
-        request_serializer=calculator__pb2.Request.SerializeToString,
-        response_deserializer=calculator__pb2.Response.FromString,
-        )
 
 
 class CalculatorServicer(object):
@@ -37,23 +32,11 @@ class CalculatorServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
-  def Asigaltura(self, request, context):
-    # missing associated documentation comment in .proto file
-    pass
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
 
 def add_CalculatorServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'SquareRoot': grpc.unary_unary_rpc_method_handler(
           servicer.SquareRoot,
-          request_deserializer=calculator__pb2.Request.FromString,
-          response_serializer=calculator__pb2.Response.SerializeToString,
-      ),
-      'Asigaltura': grpc.unary_unary_rpc_method_handler(
-          servicer.Asigaltura,
           request_deserializer=calculator__pb2.Request.FromString,
           response_serializer=calculator__pb2.Response.SerializeToString,
       ),

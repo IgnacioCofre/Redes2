@@ -10,8 +10,6 @@ message Response {
     string ip_server = 3;
 }
 
-message None{}
-
 service Calculator {
     rpc SquareRoot(Request) returns (Response) {}
 }

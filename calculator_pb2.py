@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   package='',
   syntax='proto3',
   serialized_options=None,
-  serialized_pb=_b('\n\x10\x63\x61lculator.proto\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x05 \x01(\t\"<\n\x08Response\x12\r\n\x05pista\x18\x01 \x01(\x02\x12\x0e\n\x06\x61ltura\x18\x02 \x01(\x02\x12\x11\n\tip_server\x18\x03 \x01(\t2V\n\nCalculator\x12#\n\nSquareRoot\x12\x08.Request\x1a\t.Response\"\x00\x12#\n\nAsigaltura\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\x10\x63\x61lculator.proto\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x05 \x01(\t\"<\n\x08Response\x12\r\n\x05pista\x18\x01 \x01(\x02\x12\x0e\n\x06\x61ltura\x18\x02 \x01(\x02\x12\x11\n\tip_server\x18\x03 \x01(\t21\n\nCalculator\x12#\n\nSquareRoot\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3')
 )
 
 
@@ -127,21 +127,12 @@ _CALCULATOR = _descriptor.ServiceDescriptor(
   index=0,
   serialized_options=None,
   serialized_start=112,
-  serialized_end=198,
+  serialized_end=161,
   methods=[
   _descriptor.MethodDescriptor(
     name='SquareRoot',
     full_name='Calculator.SquareRoot',
     index=0,
-    containing_service=None,
-    input_type=_REQUEST,
-    output_type=_RESPONSE,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='Asigaltura',
-    full_name='Calculator.Asigaltura',
-    index=1,
     containing_service=None,
     input_type=_REQUEST,
     output_type=_RESPONSE,

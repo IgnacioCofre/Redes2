@@ -12,7 +12,7 @@ stub = calculator_pb2_grpc.CalculatorStub(channel)
 
 # create a valid request message
 # make the call
-response = stub.SquareRoot(calculator_pb2.Request(ip_client="ip server"))
+response = stub.SquareRoot(calculator_pb2.Request(ip_client="ip client"))
 
 print(response.pista)
 print(response.altura)
