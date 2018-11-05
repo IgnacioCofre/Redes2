@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='vuelos.proto',
   package='vuelos',
   syntax='proto3',
-  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\"<\n\x07Respose\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x32\x37\n\x04\x41sig\x12/\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x0f.vuelos.Resposeb\x06proto3')
+  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\"O\n\x07Respose\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x12\x11\n\tip_server\x18\x04 \x01(\t27\n\x04\x41sig\x12/\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x0f.vuelos.Resposeb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -85,6 +85,13 @@ _RESPOSE = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='ip_server', full_name='vuelos.Respose.ip_server', index=3,
+      number=4, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -98,7 +105,7 @@ _RESPOSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=54,
-  serialized_end=114,
+  serialized_end=133,
 )
 
 DESCRIPTOR.message_types_by_name['Request'] = _REQUEST

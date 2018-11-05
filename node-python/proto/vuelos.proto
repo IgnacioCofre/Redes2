@@ -1,6 +1,6 @@
-syntax = "proto3"; //Specify proto3 version.
+syntax = "proto3";
 
-package vuelos; //Optional: unique package name.
+package vuelos;
 
 message Request {
   string ip_client = 1;
@@ -11,6 +11,7 @@ message Respose {
   bool permiso = 1;
   int32 pista_at = 2;
   int32 altura = 3;
+  string ip_server = 4;
 }
 
 //Service. define the methods that the grpc server can expose to the client.
