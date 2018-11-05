@@ -1,38 +1,42 @@
 const grpc = require('grpc');
 
-const proto = grpc.load('proto/work_leave.proto');
+const proto = grpc.load('proto/vuelos.proto');
 const server = new grpc.Server();
 
+console.log("Ingrese los datos del servidor")
+var readline = require('readline-sync');
+var nombre_torre = readline.question("Ingrese el nombre de la torre:");
+var n_pistas_aterrizaje = parseInt(readline.question("Ingrese el numero de pistas de aterrizaje:"));
+var n_pistas_despegue = parseInt(readline.question("Ingrese el numero de pistas de despegue:"));
+console.log();
+console.log("El numero de pistas de aterrizaje es: "+n_pistas_aterrizaje);
+console.log("El numero de pistas de despegue: "+n_pistas_despegue);
+console.log("El nombre del aeropuerto: "+nombre_torre);
 //define the callable methods that correspond to the methods defined in the protofile
-server.addProtoService(proto.work_leave.EmployeeLeaveDaysService.service, {
-  /**
-  Check if an employee is eligible for leave.
-  True If the requested leave days are greater than 0 and within the number
-  of accrued days.
-  */
-  eligibleForLeave(call, callback) {
-    if (call.request.requested_leave_days > 0) {
-      if (call.request.accrued_leave_days > call.request.requested_leave_days) {
-        callback(null, { eligible: true });
-      } else {
-        callback(null, { eligible: false });
-      }-1
-    } else {
-      callback(new Error('Invalid requested days'));
-    }
-  },
+/**
+Torre:
+- Bencina
+- Capacidad de pasajeros
+- Altura del avion antes de aterrizar
+- pista de aterrizaje de un vuelo entrante
+- pista de despegue, en que lugar de la cola esta y cual viene antes que el
+(aerolinea y numero de vuelo)
+- Antes de finalizar la comunicacion con el avion, comunicar la direccion
+IP de la torre de control destino al avion saliente y la altura a la que
+debe despegar para evitar colisiones.
+*/
+server.addProtoService(proto.vuelos.Asig.service, {
+  Asig_pistas(call, callback) {
+    var ip_client = call.request.ip_client;
+    console.log(ip_client);
 
-  /**
-  Grant an employee leave days
-  */
-  grantLeave(call, callback) {
-    let granted_leave_days = call.request.requested_leave_days;
-    let accrued_leave_days = call.request.accrued_leave_days - granted_leave_days;
+    let pista_at = n_pistas_aterrizaje;
+    let altura = 3;
 
     callback(null, {
-      granted: true,
-      granted_leave_days,
-      accrued_leave_days
+      permiso: true,
+      pista_at,
+      altura
     });
   }
 });

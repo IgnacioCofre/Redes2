@@ -1,0 +1,21 @@
+syntax = "proto3"; //Specify proto3 version.
+
+package vuelos; //Optional: unique package name.
+
+message Request {
+  string ip_client = 1;
+}
+
+// Message Type definition for LeaveEligibility response.
+message Respose {
+  bool permiso = 1;
+  int32 pista_at = 2;
+  int32 altura = 3;
+}
+
+//Service. define the methods that the grpc server can expose to the client.
+service Asig {
+  rpc Asig_pistas (Request) returns (Respose);
+}
+
+// Message Type fefinition for an Employee.
