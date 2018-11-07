@@ -20,17 +20,20 @@ def main():
     pact=random.randint(60,500)
     comax=random.randint(100000,200000)
     comact=random.randint(100000,200000)
+
     while(pact>pamax):
         pact=random.randint(60,500)
     pasajeros[pamax]=pact
+
     while(comact>comax):
         comact=random.randint(100000,200000)
-    pesmax=random.randint(5000,75*pamax+10*pamax)
+    combustible[comax]=comact
+
+    pesmax=random.randint(5000,75*pamax+10*pamax+100)
     while(pesmax<75*pact+10*pact):
-        pesmax=random.randint(5000,75*pamax+10*pamax)
+        pesmax=random.randint(5000,75*pamax+10*pamax+100)
     peso[pesmax]=75*pact+10*pact
     
-
 
     while(existe):
 
