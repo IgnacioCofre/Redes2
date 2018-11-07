@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='vuelos.proto',
   package='vuelos',
   syntax='proto3',
-  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\"P\n\x08Response\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x12\x11\n\tip_server\x18\x04 \x01(\t2j\n\x04\x41sig\x12\x30\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x10.vuelos.Response\x12\x30\n\x0b\x41sig_salida\x12\x0f.vuelos.Request\x1a\x10.vuelos.Responseb\x06proto3')
+  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\",\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\x12\x0e\n\x06\x61ltura\x18\x02 \x01(\x05\"P\n\x08Response\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x12\x11\n\tip_server\x18\x04 \x01(\t2j\n\x04\x41sig\x12\x30\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x10.vuelos.Response\x12\x30\n\x0b\x41sig_salida\x12\x0f.vuelos.Request\x1a\x10.vuelos.Responseb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -40,6 +40,13 @@ _REQUEST = _descriptor.Descriptor(
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
+    _descriptor.FieldDescriptor(
+      name='altura', full_name='vuelos.Request.altura', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
   ],
   extensions=[
   ],
@@ -53,7 +60,7 @@ _REQUEST = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=24,
-  serialized_end=52,
+  serialized_end=68,
 )
 
 
@@ -104,8 +111,8 @@ _RESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=54,
-  serialized_end=134,
+  serialized_start=70,
+  serialized_end=150,
 )
 
 DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
@@ -134,8 +141,6 @@ from grpc.framework.interfaces.face import utilities as face_utilities
 
 
 class AsigStub(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
 
   def __init__(self, channel):
     """Constructor.
@@ -156,8 +161,6 @@ class AsigStub(object):
 
 
 class AsigServicer(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
 
   def Asig_pistas(self, request, context):
     context.set_code(grpc.StatusCode.UNIMPLEMENTED)
@@ -189,8 +192,6 @@ def add_AsigServicer_to_server(servicer, server):
 
 
 class BetaAsigServicer(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
   def Asig_pistas(self, request, context):
     context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
   def Asig_salida(self, request, context):
@@ -198,8 +199,6 @@ class BetaAsigServicer(object):
 
 
 class BetaAsigStub(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
   def Asig_pistas(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
     raise NotImplementedError()
   Asig_pistas.future = None
