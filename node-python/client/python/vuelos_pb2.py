@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='vuelos.proto',
   package='vuelos',
   syntax='proto3',
-  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\"O\n\x07Respose\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x12\x11\n\tip_server\x18\x04 \x01(\t27\n\x04\x41sig\x12/\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x0f.vuelos.Resposeb\x06proto3')
+  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\"P\n\x08Response\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x12\x11\n\tip_server\x18\x04 \x01(\t2j\n\x04\x41sig\x12\x30\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x10.vuelos.Response\x12\x30\n\x0b\x41sig_salida\x12\x0f.vuelos.Request\x1a\x10.vuelos.Responseb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -57,36 +57,36 @@ _REQUEST = _descriptor.Descriptor(
 )
 
 
-_RESPOSE = _descriptor.Descriptor(
-  name='Respose',
-  full_name='vuelos.Respose',
+_RESPONSE = _descriptor.Descriptor(
+  name='Response',
+  full_name='vuelos.Response',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='permiso', full_name='vuelos.Respose.permiso', index=0,
+      name='permiso', full_name='vuelos.Response.permiso', index=0,
       number=1, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='pista_at', full_name='vuelos.Respose.pista_at', index=1,
+      name='pista_at', full_name='vuelos.Response.pista_at', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='altura', full_name='vuelos.Respose.altura', index=2,
+      name='altura', full_name='vuelos.Response.altura', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='ip_server', full_name='vuelos.Respose.ip_server', index=3,
+      name='ip_server', full_name='vuelos.Response.ip_server', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
@@ -105,11 +105,11 @@ _RESPOSE = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=54,
-  serialized_end=133,
+  serialized_end=134,
 )
 
 DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
-DESCRIPTOR.message_types_by_name['Respose'] = _RESPOSE
+DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
 
 Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), dict(
   DESCRIPTOR = _REQUEST,
@@ -118,12 +118,12 @@ Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,
   ))
 _sym_db.RegisterMessage(Request)
 
-Respose = _reflection.GeneratedProtocolMessageType('Respose', (_message.Message,), dict(
-  DESCRIPTOR = _RESPOSE,
+Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), dict(
+  DESCRIPTOR = _RESPONSE,
   __module__ = 'vuelos_pb2'
-  # @@protoc_insertion_point(class_scope:vuelos.Respose)
+  # @@protoc_insertion_point(class_scope:vuelos.Response)
   ))
-_sym_db.RegisterMessage(Respose)
+_sym_db.RegisterMessage(Response)
 
 
 import grpc
@@ -146,7 +146,12 @@ class AsigStub(object):
     self.Asig_pistas = channel.unary_unary(
         '/vuelos.Asig/Asig_pistas',
         request_serializer=Request.SerializeToString,
-        response_deserializer=Respose.FromString,
+        response_deserializer=Response.FromString,
+        )
+    self.Asig_salida = channel.unary_unary(
+        '/vuelos.Asig/Asig_salida',
+        request_serializer=Request.SerializeToString,
+        response_deserializer=Response.FromString,
         )
 
 
@@ -159,13 +164,23 @@ class AsigServicer(object):
     context.set_details('Method not implemented!')
     raise NotImplementedError('Method not implemented!')
 
+  def Asig_salida(self, request, context):
+    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+    context.set_details('Method not implemented!')
+    raise NotImplementedError('Method not implemented!')
+
 
 def add_AsigServicer_to_server(servicer, server):
   rpc_method_handlers = {
       'Asig_pistas': grpc.unary_unary_rpc_method_handler(
           servicer.Asig_pistas,
           request_deserializer=Request.FromString,
-          response_serializer=Respose.SerializeToString,
+          response_serializer=Response.SerializeToString,
+      ),
+      'Asig_salida': grpc.unary_unary_rpc_method_handler(
+          servicer.Asig_salida,
+          request_deserializer=Request.FromString,
+          response_serializer=Response.SerializeToString,
       ),
   }
   generic_handler = grpc.method_handlers_generic_handler(
@@ -178,6 +193,8 @@ class BetaAsigServicer(object):
   """
   def Asig_pistas(self, request, context):
     context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
+  def Asig_salida(self, request, context):
+    context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
 
 
 class BetaAsigStub(object):
@@ -186,17 +203,23 @@ class BetaAsigStub(object):
   def Asig_pistas(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
     raise NotImplementedError()
   Asig_pistas.future = None
+  def Asig_salida(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+    raise NotImplementedError()
+  Asig_salida.future = None
 
 
 def beta_create_Asig_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
   request_deserializers = {
     ('vuelos.Asig', 'Asig_pistas'): Request.FromString,
+    ('vuelos.Asig', 'Asig_salida'): Request.FromString,
   }
   response_serializers = {
-    ('vuelos.Asig', 'Asig_pistas'): Respose.SerializeToString,
+    ('vuelos.Asig', 'Asig_pistas'): Response.SerializeToString,
+    ('vuelos.Asig', 'Asig_salida'): Response.SerializeToString,
   }
   method_implementations = {
     ('vuelos.Asig', 'Asig_pistas'): face_utilities.unary_unary_inline(servicer.Asig_pistas),
+    ('vuelos.Asig', 'Asig_salida'): face_utilities.unary_unary_inline(servicer.Asig_salida),
   }
   server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
   return beta_implementations.server(method_implementations, options=server_options)
@@ -205,12 +228,15 @@ def beta_create_Asig_server(servicer, pool=None, pool_size=None, default_timeout
 def beta_create_Asig_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
   request_serializers = {
     ('vuelos.Asig', 'Asig_pistas'): Request.SerializeToString,
+    ('vuelos.Asig', 'Asig_salida'): Request.SerializeToString,
   }
   response_deserializers = {
-    ('vuelos.Asig', 'Asig_pistas'): Respose.FromString,
+    ('vuelos.Asig', 'Asig_pistas'): Response.FromString,
+    ('vuelos.Asig', 'Asig_salida'): Response.FromString,
   }
   cardinalities = {
     'Asig_pistas': cardinality.Cardinality.UNARY_UNARY,
+    'Asig_salida': cardinality.Cardinality.UNARY_UNARY,
   }
   stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
   return beta_implementations.dynamic_stub(channel, 'vuelos.Asig', cardinalities, options=stub_options)

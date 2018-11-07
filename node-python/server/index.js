@@ -13,18 +13,22 @@ console.log("El numero de pistas de aterrizaje es: "+n_pistas_aterrizaje);
 console.log("El numero de pistas de despegue: "+n_pistas_despegue);
 console.log("El nombre del aeropuerto: "+nombre_torre);
 
+
 var c_espera = [];
+var c_despegue = [];
 var p_aterrizaje = {};
-var p_despque = {};
+var p_despegue = {};
+var alturas= new Set();
 
 
 for (var i = 0; i<n_pistas_aterrizaje; i++){
   p_aterrizaje[i]="";
 }
 for (var j = 0; j<n_pistas_aterrizaje; j++){
-  p_despque[j]="";
+  p_despegue[j]="";
 }
 console.log(p_aterrizaje);
+console.log(p_despegue);
 
 //define the callable methods that correspond to the methods defined in the protofile
 /**
@@ -47,14 +51,14 @@ server.addProtoService(proto.vuelos.Asig.service, {
     var pista = 0;
 
     if (c_espera.length == 0){
-      while (permiso_aterrisaje == 1 && pista < p_aterrizaje.length){
+      while (permiso_aterrisaje == 1 && pista < n_pistas_aterrizaje){
         if (p_aterrizaje[pista] == ""){
           p_aterrizaje[pista] = ip_client;
           permiso_aterrisaje = 0;
           let ip_server = "ip_server";
           let altura = 0;
           let pista_at = pista;
-          console.log("Al vuelo "+ip_client+" se le ha asignado la pista de aterrisaje "+pista);
+          console.log("Al vuelo "+ip_client+" se le ha asignado la pista de aterrizaje "+pista);
           callback(null, {
             permiso: true,
             pista_at,
@@ -62,8 +66,22 @@ server.addProtoService(proto.vuelos.Asig.service, {
             ip_server,
           });
         }
-        else {
+        else { //caso contrario
           pista = pista + 1;
+            if (pista == n_pistas_aterrizaje){
+            let pista_at = 0;
+            let ip_server = "ip_server";
+            let altura = 0;
+            c_espera.push(ip_client);
+
+            callback(null, {
+              permiso: false,
+              pista_at,
+              altura,
+              ip_server,
+            });
+            console.log("no se pudo asignar pista de aterizaje a al vuelo"+ip_client)
+          }
         }
       }
     }
@@ -72,14 +90,14 @@ server.addProtoService(proto.vuelos.Asig.service, {
       var permiso_aterrisaje = 1;
       var pista = 0;
       if (c_espera[0] == ip_client){
-        while (permiso_aterrisaje == 1 && pista < p_aterrizaje.length){
+        while (permiso_aterrisaje == 1 && pista < n_pistas_aterrizaje){
           if (p_aterrizaje[pista] == ""){
             p_aterrizaje[pista] = ip_client;
             permiso_aterrisaje = 0;
             let ip_server = "ip_server";
             let altura = 0;
             let pista_at = pista;
-            console.log("Al vuelo "+ip_client+" se le ha asignado la pista de aterrisaje "+pista);
+            console.log("Al vuelo "+ip_client+" se le ha asignado la pista de aterrizaje "+pista);
             callback(null, {
               permiso: true,
               pista_at,
@@ -90,27 +108,168 @@ server.addProtoService(proto.vuelos.Asig.service, {
           }
           else {
             pista = pista + 1;
+
+            if (pista == n_pistas_aterrizaje){
+              let pista_at = 0;
+              let ip_server = "ip_server";
+              let altura = 0;
+              callback(null, {
+                permiso: false,
+                pista_at,
+                altura,
+                ip_server,
+              });
+              console.log("no se pudo asignar pista de aterizaje a al vuelo"+ip_client)
+            }
+          }
+        }
+      }
+      else { //caso contrario
+        let pista_at = 0;
+        let ip_server = "ip_server";
+        let altura = 0;
+        if (c_espera.includes(ip_client) == false){
+          c_espera.push(ip_client);
+        }
+        callback(null, {
+          permiso: false,
+          pista_at,
+          altura,
+          ip_server,
+        });
+        console.log("no se pudo asignar pista de aterizaje a al vuelo"+ip_client)
+      }
+    }
+    console.log(p_aterrizaje);
+    console.log(c_espera);
+  },
+
+  Asig_salida(call, callback){
+    var ip_client = call.request.ip_client;
+    console.log("ip_clientLlego llamada del avion con direccion ip: "+ip_client);
+    var permiso_despegue = 1;
+    var pista = 0;
+
+    if (c_despegue.length == 0){
+      while (permiso_despegue == 1 && pista < n_pistas_despegue){
+        if (p_despegue[pista] == ""){
+          p_despegue[pista] = ip_client;
+          permiso_despegue = 0;
+          let ip_server = "ip_server";
+          let altura = 0;
+          let pista_des = pista;
+          console.log("Al vuelo "+ip_client+" se le ha asignado la pista de despegue "+pista_des);
+
+          var l = 0;
+          //desocupar la pista de aterrizaje
+          while (l < n_pistas_aterrizaje){
+            if (p_aterrizaje[l]== ip_client){
+              p_aterrizaje[l] = "";
+              console.log("se desocupo la pista de aterrizaje: "+l);
+              l = n_pistas_aterrizaje;
+            }
+            else{l = l+1;}
+          }
+
+          let pista_at = pista_des;
+
+          callback(null, {
+            permiso: true,
+            pista_at,
+            altura,
+            ip_server,
+          });
+        }
+        else {
+          pista = pista + 1;
+          if (pista == n_pistas_despegue){
+            let pista_at = 0;
+            let ip_server = "ip_server";
+            let altura = 0;
+            var k = 0;
+            c_despegue.push(ip_client);
+            callback(null, {
+              permiso: false,
+              pista_at,
+              altura,
+              ip_server,
+            });
+            console.log("no se pudo asignar pista de aterizaje a al vuelo "+ip_client+" se asigna a la cola de espera");
+            console.log(c_despegue);
           }
         }
       }
     }
 
-    if (permiso_aterrisaje == 1) { //caso contrario
-      let pista_at = 0;
-      let ip_server = "ip_server";
-      let altura = 0;
-      c_espera.push(ip_client);
-      callback(null, {
-        permiso: false,
-        pista_at,
-        altura,
-        ip_server,
-      });
+    else {
+      var permiso_despegue = 1;
+      var pista = 0;
+      if (c_despegue[0] == ip_client){
+        while (permiso_despegue == 1 && pista < n_pistas_despegue){
+          if (p_despegue[pista] == ""){
+            p_despegue[pista] = ip_client;
+            console.log("Al vuelo "+ip_client+" se le ha asignado la pista de despegue "+pista);
+
+            while (l < n_pistas_aterrizaje){
+              if (p_aterrizaje[l]== ip_client){
+                p_aterrizaje[l] = "";
+                console.log("se desocupo la pista de despegue: "+l);
+              }
+              l = l+1;
+            }
+
+            permiso_despegue = 0;
+            let ip_server = "ip_server";
+            let altura = 0;
+            let pista_at = pista;
+
+            callback(null, {
+              permiso: true,
+              pista_at,
+              altura,
+              ip_server,
+            });
+            //eliminar el primer elemento de la lista de espera
+          }
+          else {
+            pista = pista + 1;
+            if (pista == n_pistas_despegue){
+              let pista_at = 0;
+              let ip_server = "ip_server";
+              let altura = 0;
+              var k = 0;
+
+              callback(null, {
+                permiso: false,
+                pista_at,
+                altura,
+                ip_server,
+              });
+              console.log("no se pudo asignar pista de despegue a al vuelo"+ip_client)
+            }
+          }
+        }
+      }
+      else {
+        let pista_at = 0;
+        let ip_server = "ip_server";
+        let altura = 0;
+        var k = 0;
+        if (c_despegue.includes(ip_client) == false){
+          c_despegue.push(ip_client);
+        }
+
+        callback(null, {
+          permiso: false,
+          pista_at,
+          altura,
+          ip_server,
+        });
+        console.log("no se pudo asignar pista de aterizaje a al vuelo"+ip_client)
+        console.log(c_espera);
+      }
     }
-    console.log(p_aterrizaje);
-    console.log(c_espera);
   }
-  Asig_pistas(call, callback)
 });
 
 //Specify the IP and and port to start the grpc Server, no SSL in test environment

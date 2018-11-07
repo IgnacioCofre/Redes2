@@ -7,7 +7,7 @@ message Request {
 }
 
 // Message Type definition for LeaveEligibility response.
-message Respose {
+message Response {
   bool permiso = 1;
   int32 pista_at = 2;
   int32 altura = 3;
@@ -16,7 +16,8 @@ message Respose {
 
 //Service. define the methods that the grpc server can expose to the client.
 service Asig {
-  rpc Asig_pistas (Request) returns (Respose);
+  rpc Asig_pistas (Request) returns (Response);
+  rpc Asig_salida (Request) returns (Response);
 }
 
 // Message Type fefinition for an Employee.
