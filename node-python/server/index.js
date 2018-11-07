@@ -24,7 +24,7 @@ var alturas= new Set();
 for (var i = 0; i<n_pistas_aterrizaje; i++){
   p_aterrizaje[i]="";
 }
-for (var j = 0; j<n_pistas_aterrizaje; j++){
+for (var j = 0; j<n_pistas_despegue; j++){
   p_despegue[j]="";
 }
 console.log(p_aterrizaje);
@@ -43,7 +43,7 @@ Torre:
 IP de la torre de control destino al avion saliente y la altura a la que
 debe despegar para evitar colisiones.
 */
-server.addProtoService(proto.vuelos.Asig.service, {
+server.addService(proto.vuelos.Asig.service, {
   Asig_pistas(call, callback) {
     var ip_client = call.request.ip_client;
     console.log("Llego llamada del avion con direccion ip: "+ip_client);
