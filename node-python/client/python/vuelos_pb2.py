@@ -7,7 +7,6 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
-from google.protobuf import descriptor_pb2
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
@@ -19,9 +18,9 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='vuelos.proto',
   package='vuelos',
   syntax='proto3',
-  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\"\x1c\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\"P\n\x08Response\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x12\x11\n\tip_server\x18\x04 \x01(\t2j\n\x04\x41sig\x12\x30\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x10.vuelos.Response\x12\x30\n\x0b\x41sig_salida\x12\x0f.vuelos.Request\x1a\x10.vuelos.Responseb\x06proto3')
+  serialized_options=None,
+  serialized_pb=_b('\n\x0cvuelos.proto\x12\x06vuelos\",\n\x07Request\x12\x11\n\tip_client\x18\x01 \x01(\t\x12\x0e\n\x06\x61ltura\x18\x02 \x01(\x05\"^\n\x08Response\x12\x0f\n\x07permiso\x18\x01 \x01(\x08\x12\x10\n\x08pista_at\x18\x02 \x01(\x05\x12\x0e\n\x06\x61ltura\x18\x03 \x01(\x05\x12\x11\n\tip_server\x18\x04 \x01(\t\x12\x0c\n\x04\x61\x65ro\x18\x05 \x01(\t2j\n\x04\x41sig\x12\x30\n\x0b\x41sig_pistas\x12\x0f.vuelos.Request\x1a\x10.vuelos.Response\x12\x30\n\x0b\x41sig_salida\x12\x0f.vuelos.Request\x1a\x10.vuelos.Responseb\x06proto3')
 )
-_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 
 
@@ -39,21 +38,28 @@ _REQUEST = _descriptor.Descriptor(
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='altura', full_name='vuelos.Request.altura', index=1,
+      number=2, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
   serialized_start=24,
-  serialized_end=52,
+  serialized_end=68,
 )
 
 
@@ -70,46 +76,54 @@ _RESPONSE = _descriptor.Descriptor(
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='pista_at', full_name='vuelos.Response.pista_at', index=1,
       number=2, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='altura', full_name='vuelos.Response.altura', index=2,
       number=3, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
     _descriptor.FieldDescriptor(
       name='ip_server', full_name='vuelos.Response.ip_server', index=3,
       number=4, type=9, cpp_type=9, label=1,
       has_default_value=False, default_value=_b("").decode('utf-8'),
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
-      options=None),
+      serialized_options=None, file=DESCRIPTOR),
+    _descriptor.FieldDescriptor(
+      name='aero', full_name='vuelos.Response.aero', index=4,
+      number=5, type=9, cpp_type=9, label=1,
+      has_default_value=False, default_value=_b("").decode('utf-8'),
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      serialized_options=None, file=DESCRIPTOR),
   ],
   extensions=[
   ],
   nested_types=[],
   enum_types=[
   ],
-  options=None,
+  serialized_options=None,
   is_extendable=False,
   syntax='proto3',
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=54,
-  serialized_end=134,
+  serialized_start=70,
+  serialized_end=164,
 )
 
 DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
 DESCRIPTOR.message_types_by_name['Response'] = _RESPONSE
+_sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), dict(
   DESCRIPTOR = _REQUEST,
@@ -126,118 +140,37 @@ Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Messag
 _sym_db.RegisterMessage(Response)
 
 
-import grpc
-from grpc.beta import implementations as beta_implementations
-from grpc.beta import interfaces as beta_interfaces
-from grpc.framework.common import cardinality
-from grpc.framework.interfaces.face import utilities as face_utilities
 
+_ASIG = _descriptor.ServiceDescriptor(
+  name='Asig',
+  full_name='vuelos.Asig',
+  file=DESCRIPTOR,
+  index=0,
+  serialized_options=None,
+  serialized_start=166,
+  serialized_end=272,
+  methods=[
+  _descriptor.MethodDescriptor(
+    name='Asig_pistas',
+    full_name='vuelos.Asig.Asig_pistas',
+    index=0,
+    containing_service=None,
+    input_type=_REQUEST,
+    output_type=_RESPONSE,
+    serialized_options=None,
+  ),
+  _descriptor.MethodDescriptor(
+    name='Asig_salida',
+    full_name='vuelos.Asig.Asig_salida',
+    index=1,
+    containing_service=None,
+    input_type=_REQUEST,
+    output_type=_RESPONSE,
+    serialized_options=None,
+  ),
+])
+_sym_db.RegisterServiceDescriptor(_ASIG)
 
-class AsigStub(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
+DESCRIPTOR.services_by_name['Asig'] = _ASIG
 
-  def __init__(self, channel):
-    """Constructor.
-
-    Args:
-      channel: A grpc.Channel.
-    """
-    self.Asig_pistas = channel.unary_unary(
-        '/vuelos.Asig/Asig_pistas',
-        request_serializer=Request.SerializeToString,
-        response_deserializer=Response.FromString,
-        )
-    self.Asig_salida = channel.unary_unary(
-        '/vuelos.Asig/Asig_salida',
-        request_serializer=Request.SerializeToString,
-        response_deserializer=Response.FromString,
-        )
-
-
-class AsigServicer(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
-
-  def Asig_pistas(self, request, context):
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-  def Asig_salida(self, request, context):
-    context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-    context.set_details('Method not implemented!')
-    raise NotImplementedError('Method not implemented!')
-
-
-def add_AsigServicer_to_server(servicer, server):
-  rpc_method_handlers = {
-      'Asig_pistas': grpc.unary_unary_rpc_method_handler(
-          servicer.Asig_pistas,
-          request_deserializer=Request.FromString,
-          response_serializer=Response.SerializeToString,
-      ),
-      'Asig_salida': grpc.unary_unary_rpc_method_handler(
-          servicer.Asig_salida,
-          request_deserializer=Request.FromString,
-          response_serializer=Response.SerializeToString,
-      ),
-  }
-  generic_handler = grpc.method_handlers_generic_handler(
-      'vuelos.Asig', rpc_method_handlers)
-  server.add_generic_rpc_handlers((generic_handler,))
-
-
-class BetaAsigServicer(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
-  def Asig_pistas(self, request, context):
-    context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-  def Asig_salida(self, request, context):
-    context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-
-
-class BetaAsigStub(object):
-  """Service. define the methods that the grpc server can expose to the client.
-  """
-  def Asig_pistas(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-    raise NotImplementedError()
-  Asig_pistas.future = None
-  def Asig_salida(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-    raise NotImplementedError()
-  Asig_salida.future = None
-
-
-def beta_create_Asig_server(servicer, pool=None, pool_size=None, default_timeout=None, maximum_timeout=None):
-  request_deserializers = {
-    ('vuelos.Asig', 'Asig_pistas'): Request.FromString,
-    ('vuelos.Asig', 'Asig_salida'): Request.FromString,
-  }
-  response_serializers = {
-    ('vuelos.Asig', 'Asig_pistas'): Response.SerializeToString,
-    ('vuelos.Asig', 'Asig_salida'): Response.SerializeToString,
-  }
-  method_implementations = {
-    ('vuelos.Asig', 'Asig_pistas'): face_utilities.unary_unary_inline(servicer.Asig_pistas),
-    ('vuelos.Asig', 'Asig_salida'): face_utilities.unary_unary_inline(servicer.Asig_salida),
-  }
-  server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
-  return beta_implementations.server(method_implementations, options=server_options)
-
-
-def beta_create_Asig_stub(channel, host=None, metadata_transformer=None, pool=None, pool_size=None):
-  request_serializers = {
-    ('vuelos.Asig', 'Asig_pistas'): Request.SerializeToString,
-    ('vuelos.Asig', 'Asig_salida'): Request.SerializeToString,
-  }
-  response_deserializers = {
-    ('vuelos.Asig', 'Asig_pistas'): Response.FromString,
-    ('vuelos.Asig', 'Asig_salida'): Response.FromString,
-  }
-  cardinalities = {
-    'Asig_pistas': cardinality.Cardinality.UNARY_UNARY,
-    'Asig_salida': cardinality.Cardinality.UNARY_UNARY,
-  }
-  stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
-  return beta_implementations.dynamic_stub(channel, 'vuelos.Asig', cardinalities, options=stub_options)
 # @@protoc_insertion_point(module_scope)

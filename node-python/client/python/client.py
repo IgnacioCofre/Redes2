@@ -1,53 +1,45 @@
 from concurrent import futures
 import grpc
 import time
-import vuelos_pb2 as pb
+from vuelos_pb2 import *
+from vuelos_pb2_grpc import *
 import random
 
 
 def main():
     """Python Client for Employee leave days"""
-
-    ip_client = input("Ingrese identificador del vuelo: ")
+    inicio = input("Nombre de la Aerolınea y numero de Avion: ")
+    aeroline=inicio.split()[0]
+    ip_client=inicio.split()[1]
     # Create channel and stub to server's address and port.
-    channel = grpc.insecure_channel('localhost:50050')
-    stub = pb.AsigStub(channel)
     existe=True
     pasajeros={}
     combustible={}
     peso={}
-    pamax=random.randint(60,500)
-    pact=random.randint(60,500)
-    comax=random.randint(100000,200000)
-    comact=random.randint(100000,200000)
-
-    while(pact>pamax):
-        pact=random.randint(60,500)
-    pasajeros[pamax]=pact
-
-    while(comact>comax):
-        comact=random.randint(100000,200000)
-    combustible[comax]=comact
-
-    pesmax=random.randint(5000,75*pamax+10*pamax+100)
-    while(pesmax<75*pact+10*pact):
-        pesmax=random.randint(5000,75*pamax+10*pamax+100)
-    peso[pesmax]=75*pact+10*pact
-    
+    pemax = input("[Avion - "+ip_client +"]: Peso Maximo de carga [Kg]:")
+    comb = input("[Avion - "+ip_client +"]: Capacidad del tanque de combustible [L]:")
+    datos = input("[Avion - "+ip_client +"]: IP y Puerto Torre de Control inicial:")
+    print(datos)
+    channel = grpc.insecure_channel(datos)
+    stub = AsigStub(channel)
 
     while(existe):
 
         try:
-            response = stub.Asig_pistas(pb.Request(ip_client = ip_client))
+            response = stub.Asig_pistas(Request(ip_client = ip_client,altura = 0))
             if response.permiso == True:
                 print ("La torre "+ response.ip_server + " a asignado la pista " + str(response.pista_at))
                 time.sleep(10)
                 cond_despegue = True
                 while cond_despegue :
                     print ("Se hace la peticion de despegue")
-                    response_again = stub.Asig_salida(pb.Request(ip_client = ip_client))
+                    response_again = stub.Asig_salida(Request(ip_client = ip_client, altura = 0))
                     if response_again.permiso :
                         print ("La torre "+response_again.ip_server+" a asignado la pista de despegue "+str(response_again.pista_at))
+                        print ("La altura de despegue es: "+str(response_again.altura * 10)+"[km] de altura")
+                        channel = grpc.insecure_channel(response_again.aero)
+                        stub = AsigStub(channel)
+                        print(response_again.aero)
                         cond_despegue = False
                     else :
                         print ("La torre "+response_again.ip_server+" no ha podido asignar ")
@@ -55,10 +47,12 @@ def main():
                         time.sleep(10)
             else:
                 print ("La torre "+response.ip_server+" no ha podido asignar pista de aterrizaje")
+                print ("Se debe esperar a una altura de: "+str(response.altura * 10)+"[km] de altura")
+                altura_espera = response.altura
                 time.sleep(10)
                 cond = True
                 while cond :
-                    response_again = stub.Asig_pistas(pb.Request(ip_client = ip_client))
+                    response_again = stub.Asig_pistas(Request(ip_client = ip_client, altura = altura_espera))
                     if response_again.permiso :
                         cond = False
                         print ("La torre "+response_again.ip_server+" a asignado la pista de despegue "+str(response_again.pista_at))
@@ -66,7 +60,7 @@ def main():
                         while cond_despegue :
                             time.sleep(10)
                             print ("Se hace la peticion de despegue")
-                            response_again = stub.Asig_salida(pb.Request(ip_client = ip_client))
+                            response_again = stub.Asig_salida(Request(ip_client = ip_client, altura = 0))
                             if response_again.permiso :
                                 print ("La torre "+response_again.ip_server+" a asignado la pista de despegue "+str(response_again.pista_at))
                                 cond_despegue = False
@@ -75,6 +69,7 @@ def main():
                                 print ("El despegue a quedado en lista de espera")
                     else:
                         print ("La torre "+response_again.ip_server+" no ha podido asignar pista de aterrizaje")
+                        print ("Se debe esperar a una altura de: "+str(response_again.altura * 10)+"[km] de altura")
                         time.sleep(10)
 
 

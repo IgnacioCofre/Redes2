@@ -4,20 +4,19 @@ package vuelos;
 
 message Request {
   string ip_client = 1;
+  int32 altura = 2;
 }
 
-// Message Type definition for LeaveEligibility response.
 message Response {
   bool permiso = 1;
   int32 pista_at = 2;
   int32 altura = 3;
   string ip_server = 4;
+  string aero = 5;
 }
 
-//Service. define the methods that the grpc server can expose to the client.
 service Asig {
   rpc Asig_pistas (Request) returns (Response);
   rpc Asig_salida (Request) returns (Response);
+  rpc Asig_chequeo (Request) returns (Response);
 }
-
-// Message Type fefinition for an Employee.
