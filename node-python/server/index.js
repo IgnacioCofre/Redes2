@@ -212,7 +212,6 @@ server.addService(proto.vuelos.Asig.service, {
           permiso_despegue = 0;
           let ip_server = "localhost";
 
-
           let pista_des = pista;
           console.log("Al vuelo "+ip_client+" se le ha asignado la pista de despegue "+pista_des);
 
@@ -224,6 +223,7 @@ server.addService(proto.vuelos.Asig.service, {
             let altura = Math.floor((Math.random() * 50) + 1);
             if (destiny in torres){
               let aero = torres[destiny];
+              p_despegue[ip_client] = "";
               callback(null, {
                 permiso: true,
                 pista_at,
@@ -246,12 +246,11 @@ server.addService(proto.vuelos.Asig.service, {
             }
             else{l = l+1;}
           }
-          p_despegue[ip_client]="";
+          
         }
         
 
         else {
-          console.log("holi2");
           pista = pista + 1;
           if (pista == n_pistas_despegue){
             let pista_at = 0;
@@ -267,7 +266,6 @@ server.addService(proto.vuelos.Asig.service, {
     }
 
     else {
-      console.log("holi5");
       var permiso_despegue = 1;
       var pista = 0;
       if (c_despegue[0] == ip_client){
@@ -328,9 +326,6 @@ server.addService(proto.vuelos.Asig.service, {
     }
   },
 
-  Asig_altura(call,callback){
-    
-  }
 });
 
 
